@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './TodoListTemplate.css';
-//함수형 컴포넌트
+//Todo-list의 가장 큰 틀 역할. (함수형 컴포넌트)
 const TodoListTemplate = ({form, children}) => {
     return (
         <main className="todo-list-template">
