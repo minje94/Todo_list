@@ -14,7 +14,7 @@ class App extends Component {
       { id: 2, text: '리액트 소개', checked: false}
     ]
   }
-
+  
   handleChange = (e) =>{
     this.setState({
       input: e.target.value
@@ -39,12 +39,39 @@ class App extends Component {
     }
   }
 
+  //체크 표시 및 해제
+  handleToggle = (id) => {
+    const {todos} = this.state;
+    const index = todos.findIndex(todo => todo.id === id);
+    const selected = todos[index];
+    const nextTodos = [...todos];
+
+    nextTodos[index] = {
+      ...selected,
+      checked: !selected.checked
+    };
+
+    this.setState({
+      todos: nextTodos
+    });
+  }
+
+  //아이템 제거
+  handleRemove = (id) => {
+    const { todos } = this.state;
+    this.setState({
+      todos: todos.filter(todo => todo.id !== id)
+    });
+  }
+
   render(){
     const { input, todos } = this.state;
     const {
       handleChange,
       handleCreate,
-      handleKeyPress
+      handleKeyPress,
+      handleToggle,
+      handleRemove
     } = this;
 
     return (
@@ -56,7 +83,7 @@ class App extends Component {
           onCreate = {handleCreate}
         />
       )}> 
-        <TodoItemList todos = {todos}/>
+        <TodoItemList todos = {todos} onToggle = {handleToggle} onRemove = {handleRemove}/>
       </TodoListTemplate>
     );
   }
